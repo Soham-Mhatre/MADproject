@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../widgets/stock_card.dart';
+import '../widgets/news_tile.dart';
+import 'stock_details.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override
@@ -21,15 +24,33 @@ class DashboardScreen extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                ListTile(
-                  title: Text("Apple Inc. (AAPL)"),
-                  subtitle: Text("Price: \$150.00"),
-                  trailing: Text("+1.5%", style: TextStyle(color: Colors.green)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => StockDetailsScreen(stockName: "Apple Inc.", stockPrice: "\$150.00")),
+                    );
+                  },
+                  child: StockCard(
+                    stockName: "Apple Inc. (AAPL)",
+                    stockPrice: "\$150.00",
+                    changePercentage: "+1.5%",
+                    isPositive: true,
+                  ),
                 ),
-                ListTile(
-                  title: Text("Tesla Inc. (TSLA)"),
-                  subtitle: Text("Price: \$700.00"),
-                  trailing: Text("-0.8%", style: TextStyle(color: Colors.red)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => StockDetailsScreen(stockName: "Tesla Inc.", stockPrice: "\$700.00")),
+                    );
+                  },
+                  child: StockCard(
+                    stockName: "Tesla Inc. (TSLA)",
+                    stockPrice: "\$700.00",
+                    changePercentage: "-0.8%",
+                    isPositive: false,
+                  ),
                 ),
               ],
             ),
@@ -46,13 +67,13 @@ class DashboardScreen extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                ListTile(
-                  title: Text("Stock Market Hits All-Time High"),
-                  subtitle: Text("Source: Bloomberg"),
+                NewsTile(
+                  headline: "Stock Market Hits All-Time High",
+                  source: "Bloomberg",
                 ),
-                ListTile(
-                  title: Text("Tesla Announces New EV Model"),
-                  subtitle: Text("Source: Reuters"),
+                NewsTile(
+                  headline: "Tesla Announces New EV Model",
+                  source: "Reuters",
                 ),
               ],
             ),
