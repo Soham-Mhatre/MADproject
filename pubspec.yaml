@@ -10,6 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^2.32.0  # Required for Firebase
+  firebase_auth: ^4.11.2  # Example: Auth
+  cloud_firestore: ^4.9.1 # Example: Firestore
 
   cupertino_icons: ^1.0.8
 
@@ -41,5 +44,4 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
     - .env  # API key storage file

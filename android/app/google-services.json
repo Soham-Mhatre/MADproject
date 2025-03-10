@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "466286160074",
+    "project_id": "stockmarketapp-dffca",
+    "storage_bucket": "stockmarketapp-dffca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466286160074:android:9166e3a8e4793f6c816c33",
+        "android_client_info": {
+          "package_name": "com.example.dhanapi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDae1ZtvX7rWGFaFXYeRQcWa1nCNwChBFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
