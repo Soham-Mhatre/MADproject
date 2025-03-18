@@ -1,84 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/firebase_service.dart';
 import '../widgets/stock_card.dart';
-import '../widgets/news_tile.dart';
-import 'stock_details.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final firestoreService = Provider.of<FirestoreService>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Stock Market Tracker"),
-        backgroundColor: Colors.blueAccent,
-      ),
-      body: Column(
-        children: [
-          // Watchlist Section
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "Your Watchlist",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => StockDetailsScreen(stockName: "Apple Inc.", stockPrice: "\$150.00")),
-                    );
-                  },
-                  child: StockCard(
-                    stockName: "Apple Inc. (AAPL)",
-                    stockPrice: "\$150.00",
-                    changePercentage: "+1.5%",
-                    isPositive: true,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => StockDetailsScreen(stockName: "Tesla Inc.", stockPrice: "\$700.00")),
-                    );
-                  },
-                  child: StockCard(
-                    stockName: "Tesla Inc. (TSLA)",
-                    stockPrice: "\$700.00",
-                    changePercentage: "-0.8%",
-                    isPositive: false,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // News Section
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "Latest News",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                NewsTile(
-                  headline: "Stock Market Hits All-Time High",
-                  source: "Bloomberg",
-                ),
-                NewsTile(
-                  headline: "Tesla Announces New EV Model",
-                  source: "Reuters",
-                ),
-              ],
-            ),
+        title: const Text('Watchlist'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => _showAddStockDialog(context),
           ),
         ],
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: firestoreService.getWatchlist(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              final doc = snapshot.data!.docs[index];
+              return StockCard(
+                symbol: doc['symbol'],
+                companyName: doc['name'],
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  void _showAddStockDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Add Stock'),
+        content: TextField(
+          autofocus: true,
+          decoration: const InputDecoration(hintText: 'Enter stock symbol'),
+          onSubmitted: (value) {
+            if (value.isNotEmpty) {
+              Provider.of<FirestoreService>(context, listen: false)
+                  .addToWatchlist(value.toUpperCase(), value);
+              Navigator.pop(context);
+            }
+          },
+        ),
       ),
     );
   }

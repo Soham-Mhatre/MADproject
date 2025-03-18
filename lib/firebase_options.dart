@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'stockmarketapp-dffca.firebasestorage.app',
     measurementId: 'G-1BTHKGBTQ7',
   );
+
 }

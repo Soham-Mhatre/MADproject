@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">466286160074-b07e5304gpeir6g03c0k4ksmheg4thop.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">466286160074</string>
+    <string name="google_api_key" translatable="false">AIzaSyDae1ZtvX7rWGFaFXYeRQcWa1nCNwChBFw</string>
+    <string name="google_app_id" translatable="false">1:466286160074:android:9166e3a8e4793f6c816c33</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDae1ZtvX7rWGFaFXYeRQcWa1nCNwChBFw</string>
+    <string name="google_storage_bucket" translatable="false">stockmarketapp-dffca.firebasestorage.app</string>
+    <string name="project_id" translatable="false">stockmarketapp-dffca</string>
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        
+        <item name="android:windowBackground">@drawable/launch_background</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+    </style>
+</resources>

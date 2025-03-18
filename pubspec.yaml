@@ -10,9 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^2.32.0  # Required for Firebase
-  firebase_auth: ^4.11.2  # Example: Auth
-  cloud_firestore: ^4.9.1 # Example: Firestore
+  firebase_core: ^2.24.0
+  firebase_auth: ^4.12.0
+  cloud_firestore: ^4.14.0 # Example: Firestore
+
+  url_launcher: ^6.1.11  # Add this line
 
   cupertino_icons: ^1.0.8
 
